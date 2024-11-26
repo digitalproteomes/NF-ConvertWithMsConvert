@@ -3,7 +3,9 @@
 //////////////////////////
 
 
-include {convertWithMsConvert} from './convertWithMsConvert_processes.nf'
+include {convertWithMsConvert;
+	 patchWineprefixP;
+	 cleanPatchWineprefixP} from './convertWithMsConvert_processes.nf'
 
 
 workflow convert{
@@ -22,4 +24,21 @@ workflow convert{
 
     convertWithMsConvert(rawFiles,
 	  		 conv_params)
+}
+
+
+workflow patchWineprefixW {
+    take:
+
+    main:
+    patchWineprefixP()
+}
+
+
+workflow cleanPatchWineprefixW {
+    take:
+    wineCopyFolder
+
+    main:
+    cleanPatchWineprefixP(wineCopyFolder)
 }
